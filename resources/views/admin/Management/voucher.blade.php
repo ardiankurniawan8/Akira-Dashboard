@@ -41,7 +41,7 @@
 						</div>
 						<div class="panel-body">
 							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addVoucher"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Buat Voucher</button></a></p>
-							<table class="table table-hover">
+							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
 							        <th>Kode Voucher</th>
@@ -50,6 +50,7 @@
 							        <th>Syarat</th>
 							        <th>Tanggal Kadaluarsa</th>
 							        <th>Pemilik</th>
+							        <th></th>
 							        <th></th>
 							      </tr>
 							    </thead>
@@ -123,20 +124,6 @@
               </div>
 
               <div class="form-group row">
-                  <label for="jenis" class="col-md-4 col-form-label text-md-right">Jenis</label>
-
-                  <div class="col-md-6">
-                      <input id="jenis" type="text" class="form-control{{ $errors->has('jenis') ? ' is-invalid' : '' }}" name="jenis" value="{{ old('jenis') }}" required autofocus>
-
-                      @if ($errors->has('jenis'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('jenis') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-
-              <div class="form-group row">
                   <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
 
                   <div class="col-md-6">
@@ -147,14 +134,6 @@
                               <strong>{{ $errors->first('jumlah') }}</strong>
                           </span>
                       @endif
-                  </div>
-              </div>
-
-              <div class="form-group row">
-                  <label for="syarat" class="col-md-4 col-form-label text-md-right">Syarat</label>
-
-                  <div class="col-md-6">
-                      <textarea id="syarat" name="syarat" type="text" class="form-control"></textarea>
                   </div>
               </div>
 
@@ -180,15 +159,6 @@
                   </div>
               </div>
 
-              <div class="form-group row">
-                  <label for="logo_qr" class="col-md-4 col-form-label text-md-right">Gambar QRcode</label>
-
-                  <div class="col-md-6">
-                      <input id="logo_qr" type="file" class="" name="logo_qr" value="{{ old('logo_qr') }}">
-
-                  </div>
-              </div>       
-
               <div class="form-group row mb-0" align="center">
                       <button type="submit" class="btn btn-primary">
                           Tambah Produk
@@ -208,9 +178,27 @@
         format: "yyyy-mm-dd hh:ii:ss",
         autoclose: true,
         todayBtn: true,
-        pickerPosition: "bottom-left"
+        showButtonPanel: true,
+        pickerPosition: "bottom-left",
+        startDate: new Date()
     });
-</script> 
+
+    $(document).ready(function() {
+    $('#tables').DataTable( {
+        "language": {
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "zeroRecords": "Data Kosong",
+            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            "infoEmpty": "Data Kosong",
+            "infoFiltered": "(Menampilkan dari _MAX_ data)"
+        }
+    } );
+} );
+</script>
+
+
+
+
 
 
 </html>

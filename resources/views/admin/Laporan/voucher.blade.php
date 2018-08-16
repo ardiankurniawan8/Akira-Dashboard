@@ -40,7 +40,7 @@
 
 						</div>
 						<div class="panel-body">
-							<table class="table table-hover">
+							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
 							        <th>Tanggal</th>
@@ -82,4 +82,18 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#tables').DataTable( {
+        "language": {
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "zeroRecords": "Data Kosong",
+            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            "infoEmpty": "Data Kosong",
+            "infoFiltered": "(Menampilkan dari _MAX_ data)"
+        }
+    } );
+} );
+</script> 
 </html>

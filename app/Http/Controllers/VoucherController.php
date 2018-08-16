@@ -15,7 +15,7 @@ class VoucherController extends Controller
     public function index()
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher{id,kode,jenis,syarat,jumlah,logo_voucher,logo_qr,tanggal_kadaluarsa,owner_id{username,nama}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher{id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username,nama}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($datas);
@@ -41,12 +41,9 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $kode = $request->kode;
-        $jenis = $request->jenis;
         $jumlah = $request->jumlah;
-        $syarat = $request->syarat;
         $tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
         $logo_voucher = $request->logo_voucher;
-        $logo_qr = $request->logo_qr;
 
         // dd($logo_voucher);
 
@@ -54,7 +51,7 @@ class VoucherController extends Controller
         // dd($test1);
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{CreateVoucher(kode:"'.$kode.'",jenis:"'.$jenis.'",jumlah:"'.$jumlah.'",syarat:"'.$syarat.'",tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'",logo_qr:"'.$logo_qr.'"){kode,jenis,jumlah,syarat,tanggal_kadaluarsa,logo_voucher,logo_qr}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{CreateVoucher(kode:"'.$kode.'",jumlah:"'.$jumlah.'",tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'"){kode,jenis,jumlah,syarat,tanggal_kadaluarsa,logo_voucher,logo_qr}}');
         
         $test = $response->getBody()->getContents();
         return redirect()->route('voucher.index');
@@ -81,7 +78,7 @@ class VoucherController extends Controller
     {
         // dd('here');
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){id,kode,jenis,syarat,jumlah,logo_voucher,logo_qr,tanggal_kadaluarsa,owner_id{username}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
@@ -94,7 +91,7 @@ class VoucherController extends Controller
     {
         // dd('hello');
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){id,kode,jenis,syarat,jumlah,logo_voucher,logo_qr,tanggal_kadaluarsa,owner_id{username}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
@@ -119,14 +116,12 @@ class VoucherController extends Controller
     {
         // dd($request);
         $clients = new Client;
-        $gambar = $clients->post(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){logo_voucher,logo_qr}}');
+        $gambar = $clients->post(ENV('API_URL').'/graphql?query={Voucher(id:'.$id.'){logo_voucher}}');
         $response = $gambar->getBody()->getContents();
         $data = json_decode($response, true);
 
         $kode = $request->kode;
-        $jenis = $request->jenis;
         $jumlah = $request->jumlah;
-        $syarat = $request->syarat;
         $tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
 
         if($request->logo_voucher != null){
@@ -135,16 +130,9 @@ class VoucherController extends Controller
         }else{
             $logo_voucher = $data['data']['Voucher'][0]['logo_voucher'];
         }
-        if($request->logo_qr != null){
-            $logo_qr = $request->logo_qr;
-            // dd($nama);
-        }else
-        {
-            $logo_qr = $data['data']['Voucher'][0]['logo_qr'];
-        }
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{UpdateVoucher(id:'.$id.',kode:"'.$kode.'",jenis:"'.$jenis.'",jumlah:"'.$jumlah.'",syarat:"'.$syarat.'",tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'",logo_qr:"'.$logo_qr.'"){id,kode,jenis,jumlah,syarat,tanggal_kadaluarsa,logo_voucher,logo_qr}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{UpdateVoucher(id:'.$id.',kode:"'.$kode.'",jumlah:"'.$jumlah.'",tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'"){id,kode,jumlah,tanggal_kadaluarsa,logo_voucher}}');
         
         $test = $response->getBody()->getContents();
         // dd($test);

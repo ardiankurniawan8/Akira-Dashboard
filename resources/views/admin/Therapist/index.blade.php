@@ -41,7 +41,7 @@
 						</div>
 						<div class="panel-body">
 							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addKaryawan"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
-							<table class="table table-hover">
+							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
 							        <th>NIP</th>
@@ -103,34 +103,6 @@
               @csrf
 
               <div class="form-group row">
-                  <label for="uuid" class="col-md-4 col-form-label text-md-right">{{ __('UUID') }}</label>
-
-                  <div class="col-md-6">
-                      <input id="uuid" type="text" class="form-control{{ $errors->has('uuid') ? ' is-invalid' : '' }}" name="uuid" value="{{ old('uuid') }}" required autofocus>
-
-                      @if ($errors->has('uuid'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('uuid') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-
-              <div class="form-group row">
-                  <label for="nip" class="col-md-4 col-form-label text-md-right">NIP</label>
-
-                  <div class="col-md-6">
-                      <input id="nip" type="number" class="form-control{{ $errors->has('nip') ? ' is-invalid' : '' }}" name="nip" value="{{ old('nip') }}" required autofocus>
-
-                      @if ($errors->has('nip'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('nip') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-
-              <div class="form-group row">
                   <label for="nama" class="col-md-4 col-form-label text-md-right">Nama</label>
 
                   <div class="col-md-6">
@@ -157,5 +129,19 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#tables').DataTable( {
+        "language": {
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "zeroRecords": "Data Kosong",
+            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            "infoEmpty": "Data Kosong",
+            "infoFiltered": "(Menampilkan dari _MAX_ data)"
+        }
+    } );
+} );
+</script>
 
 </html>

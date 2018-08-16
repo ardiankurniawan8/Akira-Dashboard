@@ -7,3 +7,6 @@
 <script src="{{URL::asset('assets/scripts/klorofil-common.js')}}"></script>
 <script src='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js')}}'></script>
 <script src='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js')}}'></script>
+<script src='{{URL::asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')}}'></script>
+<script src='{{URL::asset('https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js')}}'></script>
+

@@ -78,9 +78,9 @@
 					                        <button type="submit" class="btn btn-warning">
 					                          Kirim
 					                    	</button>
-					                    	<a href="{{-- {{ route('dashboard.index') }} --}}"><button type="submit" class="btn btn-default	">
+					                    	{{-- <a href="{{ route('voucher.index') }}"><button type="submit" class="btn btn-default	">
 					                          Batal
-					                    	</button></a>
+					                    	</button></a> --}}
 					              </div>
 					          </form>
      

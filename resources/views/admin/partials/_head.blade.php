@@ -12,6 +12,7 @@
 <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 <link rel="stylesheet" href="{{URL::asset('assets/css/demo.css')}}">
 <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap-datetimepicker.min.css')}}">
+<link rel="stylesheet" href="{{URL::asset('https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css')}}">
 <!-- Calendar -->
 <link rel='stylesheet' href='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css')}}' />
 <!-- GOOGLE FONTS -->

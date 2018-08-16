@@ -1,3 +1,6 @@
+{{-- @php
+	dd($data);
+@endphp --}}
 <!doctype html>
 <html lang="en">
 
@@ -33,33 +36,38 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title" align="center">Pembayaran</h3>
+							<h3 class="panel-title" align="center">Pelanggan Checkin</h3>
+
 						</div>
 						<div class="panel-body">
-							<table class="table table-hover">
+							
+							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
-							        <th>Firstname</th>
-							        <th>Lastname</th>
-							        <th>Email</th>
+							        <th>Nama</th>
+							        <th>Kode Reservasi</th>
+							        <th>Produk</th>
+							        <th>Harga</th>
+							        <th>Terapis</th>
+							        <th></th>
 							      </tr>
 							    </thead>
 							    <tbody>
+							    @foreach($data['data']['statusReservasi'] as $datas)
+							    {{-- @php
+							    	dd($datas);
+							    @endphp --}}
 							      <tr>
-							        <td>John</td>
-							        <td>Doe</td>
-							        <td>john@example.com</td>
+							        <td>{{$datas['header_reservasi_id']['tamu']}}</td>
+							        <td>{{$datas['header_reservasi_id']['kode']}}</td>
+							        @foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+							        	<td>{{$datass['produk_id']['nama']}}</td>
+							        	<td>{{$datass['produk_id']['harga']}}</td>
+							        	<td>{{$datass['karyawan_id']['nama']}}</td>
+							        @endforeach
+							        <td><a class="nav-link portfolio-link" href="{{ route('pembayaran.show', $datas['header_reservasi_id']['id']) }}"><button type="button" class="btn btn-primary">Pembayaran</button></a></td>
 							      </tr>
-							      <tr>
-							        <td>Mary</td>
-							        <td>Moe</td>
-							        <td>mary@example.com</td>
-							      </tr>
-							      <tr>
-							        <td>July</td>
-							        <td>Dooley</td>
-							        <td>july@example.com</td>
-							      </tr>
+							     @endforeach
 							    </tbody>
 							  </table>
 						</div>
@@ -83,5 +91,62 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
+
+<!--Tambah Modal-->
+
+    <div id="addKaryawan" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tambah Karyawan</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('terapis.store') }}" aria-label="{{ __('Register') }}">
+              @csrf
+
+              <div class="form-group row">
+                  <label for="nama" class="col-md-4 col-form-label text-md-right">Nama</label>
+
+                  <div class="col-md-6">
+                      <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required autofocus>
+
+                      @if ($errors->has('nama'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('nama') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+              </div>          
+
+              <div class="form-group row mb-0" align="center">
+                      <button type="submit" class="btn btn-primary">
+                          Selesai
+                      </button>
+                  
+              </div>
+          </form>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#tables').DataTable( {
+        "language": {
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "zeroRecords": "Data Kosong",
+            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            "infoEmpty": "Data Kosong",
+            "infoFiltered": "(Menampilkan dari _MAX_ data)"
+        }
+    } );
+} );
+</script>
 
 </html>

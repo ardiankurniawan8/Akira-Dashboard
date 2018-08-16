@@ -80,7 +80,7 @@
             	 	start : '{{$datas['tanggal_reservasi']}}',
                 kode :'{{$datas['kode']}}',
                 @foreach($datas['detail_reservasi'] as $datass)
-                  produk : '{{$datass['produk']}}',
+                  produk : '{{$datass['produk_id']['nama']}}',
                   terapis : '{{$datass['karyawan_id']['nama']}}',
                 @endforeach
             	 },

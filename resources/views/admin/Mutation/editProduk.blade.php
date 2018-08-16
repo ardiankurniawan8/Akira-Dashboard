@@ -115,9 +115,9 @@
 					                        <button type="submit" class="btn btn-primary">
 					                          Simpan
 					                    	</button>
-					                    	<a href="{{ route('dashboard.index') }}"><button type="submit" class="btn btn-default	">
+					                    	{{-- <a href="{{ route('dashboard.index') }}"><button type="submit" class="btn btn-default	">
 					                          Batal
-					                    	</button></a>
+					                    	</button></a> --}}
 					                  		<a href="#deleteProduk" data-toggle="modal" class="btn btn-danger" role="button">Hapus</a>
 					              </div>
 					          </form>

@@ -1,5 +1,5 @@
 {{-- @php
-    dd(Auth::User()->nama);
+    dd($data);
 @endphp --}}
 <!doctype html>
 <html lang="en">

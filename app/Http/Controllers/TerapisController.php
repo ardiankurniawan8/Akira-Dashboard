@@ -48,7 +48,7 @@ class TerapisController extends Controller
         // dd($test1);
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{CreateKaryawan(uuid:"'.$uuid.'",nip:"'.$nip.'",nama:"'.$nama.'"){uuid,nip,nama}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{CreateKaryawan(nama:"'.$nama.'"){nip,nama}}');
         
         $test = $response->getBody()->getContents();
         return redirect()->route('terapis.index');

@@ -66,7 +66,7 @@
 					                  </div>
 					              </div>
 
-					              <div class="form-group row">
+{{-- 					              <div class="form-group row">
 					                  <label for="jenis" class="col-md-4 col-form-label text-md-right">Jenis</label>
 
 					                  <div class="col-md-6">
@@ -79,7 +79,7 @@
 					                      @endif
 					                  </div>
 					              </div>
-
+ --}}
 					              <div class="form-group row">
 					                  <label for="waktu" class="col-md-4 col-form-label text-md-right">Jumlah</label>
 
@@ -94,13 +94,13 @@
 					                  </div>
 					              </div>
 
-					              <div class="form-group row">
+					              {{-- <div class="form-group row">
 					                  <label for="syarat" class="col-md-4 col-form-label text-md-right">Syarat</label>
 
 					                  <div class="col-md-6">
 					                      <textarea id="syarat" name="syarat" type="text" class="form-control">{{$datas['syarat']}}</textarea>
 					                  </div>
-					              </div>
+					              </div> --}}
 
 					              <div class="form-group row">
 					                  <label for="tanggal_kadaluarsa" class="col-md-4 col-form-label text-md-right">Tanggal Kadaluarsa</label>
@@ -122,16 +122,7 @@
 					                  <div class="col-md-6">
 					                      <input id="logo_voucher" type="file" class="" name="logo_voucher" value="{{ $datas['logo_voucher'] }}">
 					                  </div>
-					              </div>
-
-					              <div class="form-group row">
-					                  <label for="logo_qr" class="col-md-4 col-form-label text-md-right">Gambar QRcode</label>
-
-					                  <div class="col-md-6">
-					                      <input id="logo_qr" type="file" class="" name="logo_qr" value="{{$datas['logo_qr']}}">
-
-					                  </div>
-					              </div>                
+					              </div>           
 
 					              <div class="form-group row mb-0" align="center">
 					                        <button type="submit" class="btn btn-primary">
@@ -202,7 +193,8 @@
         format: "yyyy-mm-dd hh:ii:ss",
         autoclose: true,
         todayBtn: true,
-        pickerPosition: "bottom-left"
+        pickerPosition: "bottom-left",
+        startDate: new Date()
     });
 </script> 
 

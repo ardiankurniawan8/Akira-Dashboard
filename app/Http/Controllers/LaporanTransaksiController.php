@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class CalendarController extends Controller
+class LaporanTransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,16 @@ class CalendarController extends Controller
     public function index()
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={headerReservasi{id,tanggal_reservasi,tamu,kode,detail_reservasi{id,produk_id{nama},karyawan_id{nama}}status_reservasi{id,tanggal,status,progress}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={HeaderTransaksi{id,nomor,id_detail{ref_id,produk,kuantitas,harga,diskon}id_pembayaran{jenis,jumlah,referensi}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
-        // dd($datas);
-        return view('admin.calendar')->withData($data);
+        // dd($data);
+        return view('admin.laporan.transaksi')->withData($data);
+        // $fetch = file_get_contents('http://929bd54c.ngrok.io/graphql?query={produk{nama,kode}}');
+        // $test = json_decode($fetch,true);
+        // dd($test);
     }
+    
 
     /**
      * Show the form for creating a new resource.
