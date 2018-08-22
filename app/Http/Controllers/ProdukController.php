@@ -57,7 +57,7 @@ class ProdukController extends Controller
         // dd($test1);
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{createProduk(nama:"'.$nama.'",kode:"'.$kode.'",waktu:'.$waktu.',harga:'.$harga.',deskripsi:"'.$deskripsi.'"){nama,kode,waktu,harga,deskripsi}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{createProduk(nama:"'.$nama.'",waktu:'.$waktu.',harga:'.$harga.',deskripsi:"'.$deskripsi.'"){nama,waktu,harga,deskripsi}}');
         
         $test = $response->getBody()->getContents();
         return redirect()->route('dashboard.index');

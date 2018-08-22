@@ -40,7 +40,7 @@
 
 						</div>
 						<div class="panel-body">
-							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addProduk"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
+							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addWorkshift"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
 							<table class="table table-hover">
 							    <thead>
 							      <tr>
@@ -59,7 +59,7 @@
 							        <td>{{$datas['hari']}}</td>
 							        <td>{{$datas['jam_mulai']}}</td>
 							        <td>{{$datas['jam_akhir']}}</td>
-							        <td><a class="nav-link portfolio-link" href="{{-- {{ route('dashboard.edit', $datas['id']) }} --}}"><button type="button" class="btn btn-primary">Edit</button></a><span>
+							        <td><a class="nav-link portfolio-link" href="{{ route('terapis.editworkshift', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a><span>
 							      </tr>
 							     @endforeach
 							    </tbody>
@@ -85,5 +85,83 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
+
+<div id="addWorkshift" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tambah Workshift</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{-- {{ route('terapis.store') }} --}}" aria-label="{{ __('Register') }}">
+              @csrf
+
+              <div class="form-group row">
+                  <label for="hari" class="col-md-4 col-form-label text-md-right">Hari</label>
+
+                  <div class="col-md-6">
+                      <input id="hari" type="text" class="form-control{{ $errors->has('hari') ? ' is-invalid' : '' }}" name="hari" value="{{ old('hari') }}" required autofocus>
+
+                      @if ($errors->has('hari'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('hari') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+
+                  <label for="awal" class="col-md-4 col-form-label text-md-right">Jam Mulai</label>
+
+                  <div class="col-md-6">
+                      <input id="awal" type="text" style="z-index: 100000;" class="form-control timepicker{{ $errors->has('awal') ? ' is-invalid' : '' }}" name="awal" value="{{ old('awal') }}" required autofocus>
+
+                      @if ($errors->has('awal'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('awal') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+
+                  <label for="akhir" class="col-md-4 col-form-label text-md-right">Jam Berakhir</label>
+
+                  <div class="col-md-6">
+                      <input id="akhir" type="text" class="form-control timepicker{{ $errors->has('akhir') ? ' is-invalid' : '' }}" name="akhir" value="{{ old('akhir') }}" required autofocus>
+
+                      @if ($errors->has('akhir'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('akhir') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+              </div>          
+
+              <div class="form-group row mb-0" align="center">
+                      <button type="submit" class="btn btn-primary">
+                          Selesai
+                      </button>
+                  
+              </div>
+          </form>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+$('.timepicker').timepicker({
+    timeFormat: 'HH:mm:ss',
+    interval: 60,
+    minTime: '10',
+    maxTime: '22',
+    defaultTime: '',
+    startTime: '1',
+    dynamic: true,
+    dropdown: true,
+    scrollbar: true,
+});
+</script>
 
 </html>

@@ -9,4 +9,5 @@
 <script src='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js')}}'></script>
 <script src='{{URL::asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')}}'></script>
 <script src='{{URL::asset('https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js')}}'></script>
+<script src='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js')}}'></script><script src='{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js')}}'></script>
 

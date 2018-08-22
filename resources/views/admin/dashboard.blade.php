@@ -105,7 +105,7 @@
 							        <td>{{$datas['nama']}}</td>
 							        <td>{{$datas['kode']}}</td>
 							        <td>{{$datas['waktu']}}</td>
-							        <td>{{$datas['harga']}}</td>
+							        <td>Rp. {{number_format($datas['harga'],2,',','.')}}</td>
 							        <td>{{$datas['deskripsi']}}</td>
 							        <td><a class="nav-link portfolio-link" href="{{ route('dashboard.edit', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a></td>
 							      </tr>
@@ -163,20 +163,6 @@
               </div>
 
               <div class="form-group row">
-                  <label for="kode" class="col-md-4 col-form-label text-md-right">Kode</label>
-
-                  <div class="col-md-6">
-                      <input id="kode" type="text" class="form-control{{ $errors->has('kode') ? ' is-invalid' : '' }}" name="kode" value="{{ old('kode') }}" required autofocus>
-
-                      @if ($errors->has('kode'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('kode') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-
-              <div class="form-group row">
                   <label for="waktu" class="col-md-4 col-form-label text-md-right">Waktu</label>
 
                   <div class="col-md-6">
@@ -193,7 +179,7 @@
                   <label for="harga" class="col-md-4 col-form-label text-md-right">Harga</label>
 
                   <div class="col-md-6">
-                      <input id="harga" type="number" class="form-control{{ $errors->has('harga') ? ' is-invalid' : '' }}" name="harga" value="{{ old('harga') }}" required autofocus>
+                      <input id="harga" type="number" class="uang form-control{{ $errors->has('harga') ? ' is-invalid' : '' }}" name="harga" value="{{ old('harga') }}" required autofocus>
 
                       @if ($errors->has('harga'))
                           <span class="invalid-feedback" role="alert">
@@ -226,5 +212,22 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+ 
+                // Format mata uang.
+    $( '.uang' ).mask('000.000.000', {reverse: true});
+ 
+    });
+
+    $(document).submit(function(){
+ 
+                // Format mata uang.
+    $( '.uang' ).unmask();
+ 
+    });
+	
+</script>
 
 </html>

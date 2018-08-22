@@ -36,35 +36,51 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title" align="center">Terapis</h3>
+							<h3 class="panel-title" align="center">Reservasi Diterima</h3>
 
 						</div>
 						<div class="panel-body">
-							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addKaryawan"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
+							
 							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
-							        <th>NIP</th>
+							        <th>Tanggal</th>
 							        <th>Nama</th>
-							        <th>Jenis Kelamin</th>
-							        <th>Rating</th>
-							        <th style="width: 300px"></th>
+							        <th>Kode Reservasi</th>
+							        <th>Produk</th>
+							        <th>Terapis</th>
+							        <th></th>
 							      </tr>
 							    </thead>
 							    <tbody>
-							    @foreach($data['data']['KaryawanQuery'] as $datas)
-							    {{-- @php
-							    	dd($datas);
-							    @endphp --}}
-							      <tr>
-							        <td>{{$datas['nip']}}</td>
-							        <td>{{$datas['nama']}}</td>
-							        <td>{{$datas['jenis_kelamin']}}</td>
-							        <td>{{$datas['rating']}}</td>
-							        <td><a class="nav-link portfolio-link" href="{{ route('terapis.edit', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a><span>
-							        <a class="nav-link portfolio-link" href="{{ route('terapis.show', $datas['id']) }}"><button type="button" class="btn btn-primary">Workshift</button></a></td>
-							      </tr>
-							     @endforeach
+							    	@php
+							    	// dd($data);
+							    		foreach($data['data']['statusReservasi'] as $datas){
+							    		$tanggal = $datas['header_reservasi_id']['tanggal_reservasi'];
+							    		$tanggal = date('y-m-d', strtotime($tanggal));
+
+								    		if($tanggal === date('y-m-d')){
+								    @endphp
+								    			<tr>
+										        <td>{{$datas['header_reservasi_id']['tanggal_reservasi']}}</td>
+										        <td>{{$datas['header_reservasi_id']['tamu']}}</td>
+										        <td>{{$datas['header_reservasi_id']['kode']}}</td>
+										        <td>@foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+										        	<ul>{{$datass['produk_id']['nama']}}</ul>
+										        	
+										        @endforeach</td>
+
+										        <td>@foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+										        	<ul>{{$datass['karyawan_id']['nama']}}</ul>
+										        	
+										        @endforeach</td>
+										        <td><a class="nav-link portfolio-link" href="{{ route('checkin.edit', $datas['header_reservasi_id']['kode']) }}"><button type="button" class="btn btn-primary">Checkin</button></a></td>
+										        
+										      </tr>
+									@php
+								    		}		    		
+							    		}
+							    	@endphp
 							    </tbody>
 							  </table>
 						</div>
@@ -108,7 +124,7 @@
                   <label for="nama" class="col-md-4 col-form-label text-md-right">Nama</label>
 
                   <div class="col-md-6">
-                      <input id="nama" type="text" class="{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required autofocus>
+                      <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required autofocus>
 
                       @if ($errors->has('nama'))
                           <span class="invalid-feedback" role="alert">
@@ -116,16 +132,7 @@
                           </span>
                       @endif
                   </div>
-              </div>
-              
-              <div class="form-group row">
-              <label for="nama" class="col-md-4 col-form-label text-md-right">Gender</label>
-
-                  <div class="col-md-6">
-                        <input type="radio" name="gender" value="l" required> Laki-Laki
-				  		<input type="radio" name="gender" value="p" required> Perempuan<br>
-                  </div>
-              </div>				          
+              </div>          
 
               <div class="form-group row mb-0" align="center">
                       <button type="submit" class="btn btn-primary">

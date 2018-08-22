@@ -1,5 +1,5 @@
 {{-- @php
-	dd($data);
+	dd($voucher);
 @endphp --}}
 <!doctype html>
 
@@ -41,6 +41,8 @@
 
 						</div>
 						<div class="panel-body">
+							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addProduk"><button type="button" class="btn btn-success">Cek Voucher</button></a></p>
+
 							<div align="center">
    							</div>
 					        <form method="POST" action="{{ route('pembayaran.store') }}" aria-label="{{ __('Register') }}">
@@ -48,28 +50,17 @@
 
 				              <div class="form-group row">
 				              	@php
-				              		$diskon = 0;
+				              		$diskon = $voucher['data']['CheckVoucherQuery']['jumlah'];
+				              		if($diskon == 0){
+				              			$referensi = "";
+				              		}else
+				              		{
+				              			$referensi = $voucher['data']['CheckVoucherQuery']['kode'];	
+				              		}
+				              		
 				              	@endphp
-					              	<label for="kode" class="col-md-4 col-form-label text-md-right">{{ __('Kode') }}</label>
 
-					              	<div class="col-md-6">
-				                      <input id="kode" type="text" class="form-control" name="kode" value="{{$data['data']['headerReservasi'][0]['kode']}}" readonly>
-				                  </div>
-
-					                  <label for="harga" class="col-md-4 col-form-label text-md-right">{{ __('Harga') }}</label>
-
-
-					                  <div class="col-md-6">
-					                  	<label id="harga" for="harga" class="col-md-4 col-form-label text-md-right">Rp. {{$data['data']['headerReservasi'][0]['detail_reservasi'][0]['produk_id']['harga']}}</label>
-					                  </div>
-
-					                  <label for="potongan" class="col-md-4 col-form-label text-md-right">{{ __('Diskon') }}</label>
-
-					                  <div class="col-md-6">
-					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">Rp. {{$diskon}}</label>
-					                  </div>
-
-					                  <label for="tanggal" class="col-md-4 col-form-label text-md-right">{{ __('tanggal') }}</label>
+				              		<label for="tanggal" class="col-md-4 col-form-label text-md-right">{{ __('tanggal') }}</label>
 
 					                  <div class="col-md-6">
 					                  	<label id="tanggal" for="tanggal" class="col-md-4 col-form-label text-md-right">{{date('y-m-d h:i:s')}}</label>
@@ -81,10 +72,56 @@
 					                  	<label id="jenis" for="jenis" class="col-md-4 col-form-label text-md-right">Tunai</label>
 					                  </div>
 
+					              	<label for="kode" class="col-md-4 col-form-label text-md-right">{{ __('Kode Reservasi') }}</label>
+
+					              	<div class="col-md-6">
+				                      <input id="kode" type="text" class="form-control" name="kode" value="{{$data['data']['headerReservasi'][0]['kode']}}" readonly>
+				                  </div>
+
+				                  {{-- SUM HARGA PRODUK --}}
+				                  @php
+				                  	$harga = 0;
+				                  	foreach($data['data']['headerReservasi'][0]['detail_reservasi'] as $produk){
+				                  		$harga += $produk['produk_id']['harga'];
+				                  	}
+				                  @endphp
+
+					                  <label for="harga" class="col-md-4 col-form-label text-md-right">{{ __('Harga') }}</label>
+
+					                  <div class="col-md-6">
+					                  	<label id="harga" for="harga" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($harga,2,',','.')}}</label>
+					                  </div>
+
+									  <label for="referensi" class="col-md-4 col-form-label text-md-right">{{ __('Referensi Voucher') }}</label>
+
+					              	<div class="col-md-6">
+				                      <input id="referensi" type="text" class="form-control" name="referensi" value="{{$referensi}}" readonly>
+				                  </div>
+
+
+					                  <label for="potongan" class="col-md-4 col-form-label text-md-right">{{ __('Diskon') }}</label>
+
+					                  <div class="col-md-6">
+					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($diskon,2,',','.')}}</label>
+					                  </div>
+
+									{{--TOTAL PEMBAYARAN--}}
+					                  @php
+					                  		$total = $harga - $diskon;
+					                  		if($total<0){
+					                  			$total = 0;
+					                  		}
+					                  @endphp
+					                  <label for="potongan" class="col-md-4 col-form-label text-md-right">{{ __('Total') }}</label>
+
+					                  <div class="col-md-6">
+					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($total,2,',','.')}}</label>
+					                  </div>
+					              
 				                  <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
 
 				                  <div class="col-md-6">
-				                      <input id="jumlah" type="text" class="form-control{{ $errors->has('jumlah') ? ' is-invalid' : '' }}" name="jumlah" value="{{ old('jumlah') }}" required autofocus>
+				                      <input id="jumlah" type="number" class="uang form-control{{ $errors->has('jumlah') ? ' is-invalid' : '' }}" name="jumlah" value="{{ old('jumlah') }}" required autofocus>
 
 				                      @if ($errors->has('jumlah'))
 				                          <span class="invalid-feedback" role="alert">
@@ -125,5 +162,67 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
+
+<!--Tambah Modal-->
+
+    <div id="addProduk" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Cek Voucher</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('cekvoucher.update', $data['data']['headerReservasi'][0]['id']) }}" aria-label="{{ __('Register') }}">
+              {{ csrf_field() }}
+			{{ method_field('PATCH') }}
+
+              <div class="form-group row">
+                  <label for="voucher" class="col-md-4 col-form-label text-md-right">{{ __('Kode Voucher') }}</label>
+
+                  <div class="col-md-6">
+                      <input id="voucher" type="text" class="form-control{{ $errors->has('voucher') ? ' is-invalid' : '' }}" name="voucher" value="{{ old('voucher') }}" required autofocus>
+
+                      @if ($errors->has('voucher'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('voucher') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+
+              </div>           
+
+              <div class="form-group row mb-0" align="center">
+                      <button type="submit" class="btn btn-primary">
+                          Cek Voucher
+                      </button>
+                  
+              </div>
+          </form>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+ 
+                // Format mata uang.
+    $( '.uang' ).mask('000.000.000', {max:99999999,reverse: true});
+ 
+    });
+
+    $(document).submit(function(){
+ 
+                // Format mata uang.
+    $( '.uang' ).unmask();
+ 
+    });
+	
+</script>
 
 </html>

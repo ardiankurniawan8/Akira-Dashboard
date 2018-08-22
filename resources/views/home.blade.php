@@ -18,7 +18,7 @@
                                     </div>
                                 @endif
                                 <div class="form-group row">
-                                    <label for="identity" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <label for="identity" class="col-sm-4 col-form-label text-md-right">{{ __('Username') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="identity" type="identity" class="form-control{{ $errors->has('identity') ? ' is-invalid' : '' }}" name="identity" value="{{ old('identity') }}" required autofocus>

@@ -44,6 +44,7 @@
 							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
+							      	<th>Tanggal</th>
 							        <th>Nama</th>
 							        <th>Kode Reservasi</th>
 							        <th>Produk</th>
@@ -58,13 +59,24 @@
 							    	dd($datas);
 							    @endphp --}}
 							      <tr>
+							      	<td>{{$datas['header_reservasi_id']['tanggal_reservasi']}}</td>
 							        <td>{{$datas['header_reservasi_id']['tamu']}}</td>
 							        <td>{{$datas['header_reservasi_id']['kode']}}</td>
-							        @foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
-							        	<td>{{$datass['produk_id']['nama']}}</td>
-							        	<td>{{$datass['produk_id']['harga']}}</td>
-							        	<td>{{$datass['karyawan_id']['nama']}}</td>
-							        @endforeach
+							        <td>@foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+							        	<ul>{{$datass['produk_id']['nama']}}</ul>
+							        	
+							        @endforeach</td>
+
+							        <td>@foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+							        	<ul>Rp. {{number_format($datass['produk_id']['harga'],2,',','.')}}</ul>
+							        	
+							        @endforeach</td>
+
+							        <td>@foreach($datas['header_reservasi_id']['detail_reservasi'] as $datass)
+							        	<ul>{{$datass['karyawan_id']['nama']}}</ul>
+							        	
+							        @endforeach</td>
+							        
 							        <td><a class="nav-link portfolio-link" href="{{ route('pembayaran.show', $datas['header_reservasi_id']['id']) }}"><button type="button" class="btn btn-primary">Pembayaran</button></a></td>
 							      </tr>
 							     @endforeach

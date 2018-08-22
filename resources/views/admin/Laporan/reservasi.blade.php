@@ -35,29 +35,24 @@
 
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title" align="center">Riwayat Pembayaran</h3>
+							<h3 class="panel-title" align="center">Riwayat Reservasi</h3>
 
 						</div>
 						<div class="panel-body">
 							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
-							        <th>Nomor Pembayaran</th>
+							        <th>Nama Tamu</th>
 							        <th>Kode Reservasi</th>
-							        <th>Produk</th>
-							        <th>Harga</th>
+							        <th>Status</th>
 							      </tr>
 							    </thead>
 							    <tbody>
-							    @foreach($data['data']['HeaderTransaksi'] as $datas)
+							    @foreach($data['data']['statusReservasi'] as $datas)
 							      <tr>
-							        <td>{{$datas['nomor']}}</td>
-							        @foreach($datas['id_detail'] as $datass)
-							        <td>{{$datass['ref_id']}}</td>
-							        <td>{{$datass['produk']}}</td>
-							        
-							        @endforeach
-							        <td>{{number_format($datas['id_pembayaran'][0]['jumlah'],2,',','.')}}</td>
+							        <td>{{$datas['header_reservasi_id']['tamu']}}</td>
+							        <td>{{$datas['header_reservasi_id']['kode']}}</td>
+							        <td>{{$datas['status']}}</td>
 							      </tr>
 							     @endforeach
 							    </tbody>

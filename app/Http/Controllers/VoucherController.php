@@ -15,10 +15,10 @@ class VoucherController extends Controller
     public function index()
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher{id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username,nama}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={Voucher(status:1){id,kode,jenis,syarat,jumlah,logo_voucher,tanggal_kadaluarsa,owner_id{username,nama}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
-        // dd($datas);
+        // dd($data);
         return view('admin.management.voucher')->withData($data);
     }
 
