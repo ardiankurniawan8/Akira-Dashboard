@@ -40,7 +40,7 @@
 
 						</div>
 						<div class="panel-body">
-							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addWorkshift"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
+							
 							<table class="table table-hover">
 							    <thead>
 							      <tr>

@@ -29,6 +29,6 @@ Route::get('/reservasi/konfirmasi/{konfirmasi}/edit2','ReservasiMasukController@
 Route::resource('/reservasi/konfirmasi','ReservasiMasukController')->middleware('auth');
 Route::resource('/reservasi/checkin','ReservasiDiterimaController')->middleware('auth');
 Route::get('/management/admin','PagesController@getManagementAdmin')->middleware('auth');
-Route::get('/laporan/pelanggan','PagesController@getLaporanPelanggan')->middleware('auth');
+Route::resource('/laporan/pelanggan','LaporanPelangganController')->middleware('auth');
 Route::resource('/laporan/transaksi','LaporanTransaksiController')->middleware('auth');
 Route::resource('/laporan/reservasi','LaporanReservasiController')->middleware('auth');

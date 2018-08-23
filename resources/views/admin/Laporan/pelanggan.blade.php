@@ -1,3 +1,6 @@
+{{-- @php
+	dd($data);	
+@endphp --}}
 <!doctype html>
 <html lang="en">
 
@@ -30,54 +33,34 @@
 			<div class="main-content">
 				<div class="container-fluid">
 
-					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title">Weekly Overview</h3>
-							<p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
+							<h3 class="panel-title" align="center">Laporan Pelanggan</h3>
+
 						</div>
 						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-download"></i></span>
-										<p>
-											<span class="number">102</span>
-											<span class="title">Member</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-										<p>
-											<span class="number">203</span>
-											<span class="title">Reservasi Sukses</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-eye"></i></span>
-										<p>
-											<span class="number">50</span>
-											<span class="title">Reservasi Batal</span>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-bar-chart"></i></span>
-										<p>
-											<span class="number">10</span>
-											<span class="title">Therapist</span>
-										</p>
-									</div>
-								</div>
-							</div>
+							<table id="tables" class="table table-hover">
+							    <thead>
+							      <tr>
+							        <th>Nama User</th>
+							        <th>Karyawan</th>
+							        <th>Rating</th>
+							        <th>Komentar</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							    {{-- @foreach($data['data']['statusReservasi'] as $datas) --}}
+							      <tr>
+							        <td>{{-- {{$datas['header_reservasi_id']['tamu']}} --}}</td>
+							        <td>{{-- {{$datas['header_reservasi_id']['kode']}} --}}</td>
+							        <td>{{-- {{$datas['status']}} --}}</td>
+							        <td>{{-- {{$datas['status']}} --}}</td>
+							      </tr>
+							     {{-- @endforeach --}}
+							    </tbody>
+							  </table>
 						</div>
-					</div>
-					<!-- END OVERVIEW -->	
+					</div>	
 
 				</div>
 			</div>
@@ -96,5 +79,36 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
+
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
+</p>
+			</div>
+		</footer>
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	@include('admin.partials._javascript')
+</body>
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#tables').DataTable( {
+        "language": {
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "zeroRecords": "Data Kosong",
+            "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+            "infoEmpty": "Data Kosong",
+            "infoFiltered": "(Menampilkan dari _MAX_ data)"
+        }
+    } );
+} );
+</script>
 
 </html>

@@ -45,18 +45,13 @@
 
 							<div align="center">
    							</div>
-					        <form method="POST" action="{{ route('pembayaran.store') }}" aria-label="{{ __('Register') }}">
+					        <form id="form" method="POST" onsubmit="return validateForm()" action="{{ route('pembayaran.store') }}" aria-label="{{ __('Register') }}">
 				              @csrf
 
 				              <div class="form-group row">
 				              	@php
 				              		$diskon = $voucher['data']['CheckVoucherQuery']['jumlah'];
-				              		if($diskon == 0){
-				              			$referensi = "";
-				              		}else
-				              		{
-				              			$referensi = $voucher['data']['CheckVoucherQuery']['kode'];	
-				              		}
+				              		$referensi = $voucher['data']['CheckVoucherQuery']['kode'];	
 				              		
 				              	@endphp
 
@@ -89,7 +84,7 @@
 					                  <label for="harga" class="col-md-4 col-form-label text-md-right">{{ __('Harga') }}</label>
 
 					                  <div class="col-md-6">
-					                  	<label id="harga" for="harga" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($harga,2,',','.')}}</label>
+					                  	<label id="harga" for="harga" class="col-md-4 col-form-label text-md-right">{{number_format($harga,2,',','.')}}</label>
 					                  </div>
 
 									  <label for="referensi" class="col-md-4 col-form-label text-md-right">{{ __('Referensi Voucher') }}</label>
@@ -102,7 +97,7 @@
 					                  <label for="potongan" class="col-md-4 col-form-label text-md-right">{{ __('Diskon') }}</label>
 
 					                  <div class="col-md-6">
-					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($diskon,2,',','.')}}</label>
+					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">{{number_format($diskon,2,',','.')}}</label>
 					                  </div>
 
 									{{--TOTAL PEMBAYARAN--}}
@@ -112,10 +107,10 @@
 					                  			$total = 0;
 					                  		}
 					                  @endphp
-					                  <label for="potongan" class="col-md-4 col-form-label text-md-right">{{ __('Total') }}</label>
+					                  <label for="total" class="col-md-4 col-form-label text-md-right">{{ __('Total') }}</label>
 
 					                  <div class="col-md-6">
-					                  	<label id="potongan" for="potongan" class="col-md-4 col-form-label text-md-right">Rp. {{number_format($total,2,',','.')}}</label>
+					                  	<input id="total" name="total" for="total" class="form-control" value="{{number_format($total,2,',','.')}}" readonly>
 					                  </div>
 					              
 				                  <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
@@ -132,7 +127,7 @@
 				              </div>          
 
 				              <div class="form-group row mb-0" align="center">
-				                      <button type="submit" class="btn btn-primary">
+				                      <button id="myButton" type="submit" class="btn btn-primary">
 				                          Selesai
 				                      </button>
 				                  
@@ -175,7 +170,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{{ route('cekvoucher.update', $data['data']['headerReservasi'][0]['id']) }}" aria-label="{{ __('Register') }}">
+        <form method="POST" action="{{ route('cekvoucher.update', $data['data']['headerReservasi'][0]['id']) }}" aria-label="{{ __('Cek Voucher') }}">
               {{ csrf_field() }}
 			{{ method_field('PATCH') }}
 
@@ -212,7 +207,7 @@
 	$(document).ready(function(){
  
                 // Format mata uang.
-    $( '.uang' ).mask('000.000.000', {max:99999999,reverse: true});
+    $( '.uang' ).mask('000.000.000', {reverse: true});
  
     });
 
@@ -221,7 +216,16 @@
                 // Format mata uang.
     $( '.uang' ).unmask();
  
-    });
+    }); 
+
+    function validateForm() {
+	    var x = document.forms["form"]["total"].value;
+	    var y = document.forms["form"]["jumlah"].value;
+	    if (y < x) {
+	        alert("Jumlah uang yang anda masukkan kurang");
+	        return false;
+	    }
+	}
 	
 </script>
 

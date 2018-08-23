@@ -41,8 +41,6 @@ class TerapisController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $uuid = $request->uuid;
-        $nip = $request->nip;
         $nama = $request->nama;
         $jk = $request->gender;
 
