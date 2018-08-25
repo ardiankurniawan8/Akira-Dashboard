@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class LaporanReservasiController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,12 @@ class LaporanReservasiController extends Controller
     public function index()
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={statusReservasi{status,progress,tanggal,header_reservasi_id{id,tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,harga,}karyawan_id{nip,nama}}}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={users{nama,username,jenis_kelamin}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
-        return view('admin.laporan.reservasi')->withData($data);
+        return view('admin.management.admin')->withData($data);
+
     }
 
     /**
@@ -40,7 +41,21 @@ class LaporanReservasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $nama = $request->nama;
+        $username = $request->username;
+        $password = str_random(10);
+        // dd($password);
+        // dd($logo_voucher);
+
+        // $test1 = 'http://localhost:3000/graphql?query=mutation{createProduk(nama:"'.$nama.'",kode:"'.$kode.'",waktu:'.$waktu.',harga:'.$harga.',deskripsi:"'.$deskripsi.'"){nama,kode,waktu,harga,deskripsi}}';
+        // dd($test1);
+
+        $client = new Client;
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{AddUser(nama:"'.$nama.'",username:"'.$username.'",password:"'.$password.'",jenis_kelamin:""){nama,username}}');
+        
+        $test = $response->getBody()->getContents();
+        return redirect()->route('admin.index')->with('status', 'Password anda : '.$password);
     }
 
     /**
@@ -85,6 +100,13 @@ class LaporanReservasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd($id);
+        $client = new Client;
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{Deactivate(username:"'.$id.'"){nama,username}}');
+        
+        $test = $response->getBody()->getContents();
+        // dd($test);
+        return redirect()->route('admin.index')->with('status', 'Berhasil di Deactivate');
+        
     }
 }

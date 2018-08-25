@@ -106,7 +106,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{{ route('voucher.store') }}" aria-label="{{ __('Register') }}">
+        <form id="add" method="POST" onsubmit="return validateForm()" action="{{ route('voucher.store') }}" aria-label="{{ __('Register') }}">
               @csrf
 
               <div class="form-group row">

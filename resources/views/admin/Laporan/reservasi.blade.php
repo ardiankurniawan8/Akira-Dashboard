@@ -45,6 +45,7 @@
 							        <th>Nama Tamu</th>
 							        <th>Kode Reservasi</th>
 							        <th>Status</th>
+							        <th>Progress</th>
 							      </tr>
 							    </thead>
 							    <tbody>
@@ -53,31 +54,13 @@
 							        <td>{{$datas['header_reservasi_id']['tamu']}}</td>
 							        <td>{{$datas['header_reservasi_id']['kode']}}</td>
 							        <td>{{$datas['status']}}</td>
+							        <td>{{$datas['progress']}}</td>
 							      </tr>
 							     @endforeach
 							    </tbody>
 							  </table>
 						</div>
 					</div>	
-
-				</div>
-			</div>
-			<!-- END MAIN CONTENT -->
-		</div>
-		<!-- END MAIN -->
-		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
-			</div>
-		</footer>
-	</div>
-	<!-- END WRAPPER -->
-	<!-- Javascript -->
-	@include('admin.partials._javascript')
-</body>
-
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->

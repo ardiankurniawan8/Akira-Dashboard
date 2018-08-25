@@ -40,6 +40,7 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
+        
         $kode = $request->kode;
         $jumlah = $request->jumlah;
         $tanggal_kadaluarsa = $request->tanggal_kadaluarsa;

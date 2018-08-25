@@ -93,10 +93,21 @@
 					                        <button type="submit" class="btn btn-primary">
 					                          Simpan
 					                    	</button>
-					                    	<a href="{{ route('terapis.index') }}"><button type="button" class="btn btn-default	">
+					                    	{{-- <a href="{{ route('terapis.index') }}"><button type="button" class="btn btn-default	">
 					                          Batal
-					                    	</button></a>
-					                  		<a href="#deleteProduk" data-toggle="modal" class="btn btn-danger" role="button">Hapus</a>
+					                    	</button></a> --}}
+					                    	@php
+					                    		if($data['data']['WorkshiftQuery']['0']['flag'] == 1){
+					                    	@endphp
+					                  		<a href="#nonaktif" data-toggle="modal" class="btn btn-danger" role="button">Nonaktif</a>
+					                  		@php
+					                  		}else
+					                  		{
+					                  		@endphp
+					                  		<a href="#aktif" data-toggle="modal" class="btn btn-warning" role="button">Aktif</a>
+					                  		@php
+					                  		}	
+					                  		@endphp
 					              </div>
 					          </form>
      
@@ -123,23 +134,23 @@
 	<!-- Javascript -->
 	@include('admin.partials._javascript')
 </body>
-<!--Warning Modal-->
+<!--Nonaktif Modal-->
 
-    <div id="deleteProduk" class="modal fade" role="dialog">
+    <div id="nonaktif" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Konfirmasi Hapus</h4>
+        <h4 class="modal-title">Konfirmasi Non-aktif</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-      	Anda Yakin Untuk Menghapus Data ?
-        <form action="{{-- {{ route('dashboard.destroy' , $datas['id'])}} --}}" method="POST">
-		    <input name="_method" type="hidden" value="DELETE">
+      	Anda Yakin Untuk Non-aktif Data ?
+        <form action="{{ route('terapis.disableworkshift' , $data['data']['WorkshiftQuery']['0']['id'])}}" method="POST">
+		    <input name="_method" type="hidden">
 		    {{ csrf_field() }}
-		    {{ method_field('DELETE') }}
+		    {{ method_field('PATCH') }}
 
 		    <div class="modal-footer no-border">
 		    	<button type="submit" class="btn btn-danger">Ya</button>
@@ -152,6 +163,37 @@
 
   </div>
 </div>
+
+<!--aktif Modal-->
+
+    <div id="aktif" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Konfirmasi Aktif</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	Anda Yakin Untuk Aktif Data ?
+        <form action="{{ route('terapis.enableworkshift' , $data['data']['WorkshiftQuery']['0']['id'])}}" method="POST">
+		    <input name="_method" type="hidden">
+		    {{ csrf_field() }}
+		    {{ method_field('PATCH') }}
+
+		    <div class="modal-footer no-border">
+		    	<button type="submit" class="btn btn-danger">Ya</button>
+		        <button type="button" class="btn btn-info" data-dismiss="modal">Tidak</button>
+		    </div>
+		</form>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
 
 <script type="text/javascript">
     $('.timepicker').timepicker({

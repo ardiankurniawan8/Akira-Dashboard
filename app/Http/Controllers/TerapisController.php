@@ -65,7 +65,7 @@ class TerapisController extends Controller
     {
         
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={KaryawanQuery(id:'.$id.'){id,uuid,nip,nama,rating,penempatan{posisi,tanggal_mulai,tanggal_berakhir,workshift{id,hari,jam_mulai,jam_akhir}ketersediaan{hari,jam_mulai,jam_akhir}}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={KaryawanQuery(id:'.$id.'){id,uuid,nip,nama,rating,penempatan{posisi,tanggal_mulai,tanggal_berakhir,workshift{id,hari,jam_mulai,jam_akhir,flag}ketersediaan{hari,jam_mulai,jam_akhir}}}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
@@ -92,11 +92,33 @@ class TerapisController extends Controller
     {
         // dd($id);
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={WorkshiftQuery(id:'.$id.'){id,hari,jam_mulai,jam_akhir}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={WorkshiftQuery(id:'.$id.'){id,hari,jam_mulai,jam_akhir,flag}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
         return view('admin.mutation.editworkshift')->withData($data);
+    }
+
+    public function enableworkshift($id)
+    {
+        // dd('enable');
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{EnableWorkshift(id:'.$id.'){id,hari,karyawan_id{id}}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+        // dd($data);
+        return redirect()->route('terapis.show', $data['data']['EnableWorkshift']['karyawan_id']['id']);
+    }
+
+    public function disableworkshift($id)
+    {
+        // dd('disable');
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{DisableWorkshift(id:'.$id.'){id,hari,karyawan_id{id}}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+        // dd($data['data']['DisableWorkshift']['karyawan_id']['id']);
+        return redirect()->route('terapis.show', $data['data']['DisableWorkshift']['karyawan_id']['id']);
     }
 
     /**

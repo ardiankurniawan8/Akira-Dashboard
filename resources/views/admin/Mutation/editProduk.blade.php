@@ -64,7 +64,7 @@
 					                  <label for="kode" class="col-md-4 col-form-label text-md-right">Kode</label>
 
 					                  <div class="col-md-6">
-					                      <input id="kode" type="text" class="form-control{{ $errors->has('kode') ? ' is-invalid' : '' }}" name="kode" value="{{$datas['kode']}}" required autofocus>
+					                      <input id="kode" type="text" class="form-control{{ $errors->has('kode') ? ' is-invalid' : '' }}" name="kode" value="{{$datas['kode']}}" required autofocus readonly>
 
 					                      @if ($errors->has('kode'))
 					                          <span class="invalid-feedback" role="alert">

@@ -26,31 +26,10 @@
 		</li>
 		<li><a href="/pembayaran" class="{{Request::is('pembayaran')?"active":""}}"><i class="lnr lnr-dice"></i> <span>Pembayaran</span></a></li>
 		<li><a href="/terapis" class="{{Request::is('terapis')?"active":""}}"><i class="lnr lnr-dice"></i> <span>Terapis</span></a></li>
-		{{-- <li>
-
-			@if(Request::is('therapist/history')||Request::is('therapist/komisi')||Request::is('therapist/workshift'))
-			<a href="#subPages" data-toggle="collapse" class="collapse active"><i class="lnr lnr-file-empty"></i> <span>Therapist</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-			<div id="subPages" class="collapsed ">
-				<ul class="nav">
-					<li><a href="/therapist/history" class="">History</a></li>
-					<li><a href="/therapist/komisi" class="">Komisi</a></li>
-					<li><a href="/therapist/workshift" class="">Workshift</a></li>
-				</ul>
-			</div>
-			@else
-			<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Therapist</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-			<div id="subPages" class="collapse ">
-				<ul class="nav">
-					<li><a href="/therapist/history" class="">History</a></li>
-					<li><a href="/therapist/komisi" class="">Komisi</a></li>
-					<li><a href="/therapist/workshift" class="">Workshift</a></li>
-				</ul>
-			</div>
-			@endif
-		</li> --}}
+		
 		<li>
 
-			@if(Request::is('management/therapist')||Request::is('management/voucher')||Request::is('management/admin'))
+			@if(Request::is('management/voucher')||Request::is('management/admin'))
 			<a href="#subPages1" data-toggle="collapse" class="collapse active"><i class="lnr lnr-file-empty"></i> <span>Management</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 			<div id="subPages1" class="collapsed">
 				<ul class="nav">

@@ -47,18 +47,25 @@
 							        <th>Hari</th>
 							        <th>Jam Mulai</th>
 							        <th>Jam Akhir</th>
+							        <th>Status</th>
 							        <th style="width: 300px"></th>
 							      </tr>
 							    </thead>
 							    <tbody>
 							    @foreach($data['data']['KaryawanQuery'][0]['penempatan'][0]['workshift'] as $datas)
-							    {{-- @php
-							    	dd($datas);
-							    @endphp --}}
+							    @php
+							    	if($datas['flag'] == 0){
+							    		$string = "Off";	
+							    	}else
+							    	{
+							    		$string = "On";
+							    	}
+							    @endphp
 							      <tr>
 							        <td>{{$datas['hari']}}</td>
 							        <td>{{$datas['jam_mulai']}}</td>
 							        <td>{{$datas['jam_akhir']}}</td>
+							        <td>{{$string}}</td>
 							        <td><a class="nav-link portfolio-link" href="{{ route('terapis.editworkshift', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a><span>
 							      </tr>
 							     @endforeach

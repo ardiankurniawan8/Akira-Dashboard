@@ -60,7 +60,7 @@ class ProdukController extends Controller
         $response = $client->post(ENV('API_URL').'/graphql?query=mutation{createProduk(nama:"'.$nama.'",waktu:'.$waktu.',harga:'.$harga.',deskripsi:"'.$deskripsi.'"){nama,waktu,harga,deskripsi}}');
         
         $test = $response->getBody()->getContents();
-        return redirect()->route('dashboard.index');
+        return redirect()->route('dashboard.index')->with('status', 'Berhasil menambah Produk');
     }
 
     /**
@@ -113,7 +113,7 @@ class ProdukController extends Controller
         
         $test = $response->getBody()->getContents();
         // dd($test);
-        return redirect()->route('dashboard.index');
+        return redirect()->route('dashboard.index')->with('status', 'Berhasil mengupdate Produk');
 
     }
 
@@ -131,6 +131,6 @@ class ProdukController extends Controller
         
         $test = $response->getBody()->getContents();
         // dd($test);
-        return redirect()->route('dashboard.index');
+        return redirect()->route('dashboard.index')->with('status', 'Berhasil menghapus Produk');
     }
 }
