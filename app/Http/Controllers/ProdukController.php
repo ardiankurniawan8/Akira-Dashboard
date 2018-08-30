@@ -16,12 +16,27 @@ class ProdukController extends Controller
 
     public function index()
     {
+        $clientsss = new Client;
+        $requestsss = $clientsss->get(ENV('API_URL').'/graphql?query={Voucher(status:1){id}}');
+        $responsesss = $requestsss->getBody()->getContents();
+        $datasss = json_decode($responsesss, true);
+
+        $clientss = new Client;
+        $requestss = $clientss->get(ENV('API_URL').'/graphql?query={KaryawanQuery{id}}');
+        $responsess = $requestss->getBody()->getContents();
+        $datass = json_decode($responsess, true);
+
+        $clients = new Client;
+        $requests = $clients->get(ENV('API_URL').'/graphql?query={statusReservasi(progress:"selesai"){header_reservasi_id{id}}}');
+        $responses = $requests->getBody()->getContents();
+        $datas = json_decode($responses, true);
+
         $client = new Client;
         $request = $client->get(ENV('API_URL').'/graphql?query={produk{id,nama,kode,deskripsi,harga,waktu}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
-        return view('admin.dashboard')->withData($data);
+        return view('admin.dashboard')->withData($data)->withDatas($datas)->withDatass($datass)->withDatasss($datasss);
         // $fetch = file_get_contents('http://929bd54c.ngrok.io/graphql?query={produk{nama,kode}}');
         // $test = json_decode($fetch,true);
         // dd($test);

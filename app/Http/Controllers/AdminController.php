@@ -52,7 +52,7 @@ class AdminController extends Controller
         // dd($test1);
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{AddUser(nama:"'.$nama.'",username:"'.$username.'",password:"'.$password.'",jenis_kelamin:""){nama,username}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{AddUser(nama:"'.$nama.'",username:"'.$username.'",password:"'.$password.'",jk:""){nama,username}}');
         
         $test = $response->getBody()->getContents();
         return redirect()->route('admin.index')->with('status', 'Password anda : '.$password);

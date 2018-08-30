@@ -43,18 +43,27 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->jumlah < $request->total){
-            return asd;
-        }
-
+        
+        $clients = new Client;
+        $requests = $clients->get(ENV('API_URL').'/graphql?query={headerReservasi(kode:"'.$request->kode.'"){status_reservasi{progress}}}');
+        $responses = $requests->getBody()->getContents();
+        $datas = json_decode($responses, true);
+        // dd($datas);
+        // dd($request);
+        if($datas['data']['headerReservasi'][0]['status_reservasi'][0]['progress'] === "selesai"){
+            return redirect()->route('pembayaran.index')->with('status', 'Pembayaran sudah dilakukan');
+        }else
+        {
+        $diskon = $request->diskon;
+        $kode = $request->kode;
         $client = new Client;
         $time = date('y-m-d h:i:s');
-        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{CreateHeader(ref_id:"'.$request->kode.'",tanggal:"'.$time.'", jenis: "Tunai", jumlah: "'.$request->jumlah.'", referensi: "asdf1234"){id,nomor,id_detail{id,ref_id}}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{CreateHeader(ref_id:"'.$request->kode.'",tanggal:"'.$time.'", jenis: "Tunai", jumlah: "'.$request->jumlah.'", referensi: "'.$request->referensi.'",diskon:"'.$diskon.'"){id,nomor,id_detail{id,ref_id}}}');
         $response = $request->getBody()->getContents();
-        $data = json_decode($response, true);
+        $data = json_decode($response, true);   
         // dd($data);
-
-        return redirect()->route('pembayaran.index');
+        return redirect()->route('pembayaran.edit', $data['data']['CreateHeader']['nomor'])->with('status', 'Pembayaran Berhasil');
+        }
     }
 
     /**
@@ -85,6 +94,13 @@ class PembayaranController extends Controller
     public function edit($id)
     {
         
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query={HeaderTransaksi(nomor:"'.$id.'"){nomor,tanggal,id_pembayaran{jumlah,referensi}id_detail{ref_id,produk,harga,diskon}}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+        // dd($data);
+
+        return view('admin.invoice')->withData($data)->with('status','Pembayaran Sukses');
     }
 
     /**

@@ -41,6 +41,11 @@
 
 						</div>
 						<div class="panel-body">
+							@if (session('status'))
+									    <div class="alert alert-success">
+									        {{ session('status') }}
+									    </div>
+							@endif
 							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addProduk"><button type="button" class="btn btn-success">Cek Voucher</button></a></p>
 
 							<div align="center">
@@ -110,13 +115,16 @@
 					                  <label for="total" class="col-md-4 col-form-label text-md-right">{{ __('Total') }}</label>
 
 					                  <div class="col-md-6">
-					                  	<input id="total" name="total" for="total" class="form-control" value="{{number_format($total,2,',','.')}}" readonly>
+					                  	<label id="total" name="total" for="total" class="col-md-4 col-form-label text-md-right">{{number_format($total,2,',','.')}}</label>
+					                  	<input id="totall" for="totall" name="totall" type="number" class="form-control{{ $errors->has('totall') ? ' is-invalid' : '' }}" value="{{ $total }}" readonly>
 					                  </div>
 					              
 				                  <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
 
 				                  <div class="col-md-6">
-				                      <input id="jumlah" type="number" class="uang form-control{{ $errors->has('jumlah') ? ' is-invalid' : '' }}" name="jumlah" value="{{ old('jumlah') }}" required autofocus>
+				                  	<input id="jumlah" type="number" class="uang form-control{{ $errors->has('jumlah') ? ' is-invalid' : '' }}" name="jumlah" value="{{ old('jumlah') }}" required autofocus>
+
+				                  	<input id="diskon" type="hidden" class="form-control{{ $errors->has('diskon') ? ' is-invalid' : '' }}" name="diskon" value="{{ $diskon }}" hidden readonly>			                      
 
 				                      @if ($errors->has('jumlah'))
 				                          <span class="invalid-feedback" role="alert">

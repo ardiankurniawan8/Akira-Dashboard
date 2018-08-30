@@ -52,7 +52,7 @@ class TerapisController extends Controller
         $response = $client->post(ENV('API_URL').'/graphql?query=mutation{CreateKaryawan(nama:"'.$nama.'",jenis_kelamin:"'.$jk.'"){nip,nama}}');
         
         $test = $response->getBody()->getContents();
-        return redirect()->route('terapis.index');
+        return redirect()->route('terapis.index')->with('status','Berhasil Menambah Terapis');
     }
 
     /**

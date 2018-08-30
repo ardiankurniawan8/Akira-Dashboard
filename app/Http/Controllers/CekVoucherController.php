@@ -73,8 +73,14 @@ class CekVoucherController extends Controller
         $request = $client->get(ENV('API_URL').'/graphql?query={CheckVoucherQuery(kode:"'.$request->voucher.'"){kode,jumlah}}');
         $response = $request->getBody()->getContents();
         $voucher = json_decode($response, true);
+        if($voucher['data']['CheckVoucherQuery']['jumlah'] == 0){
+            $status = "Voucher Tidak Valid atau hangus";
+        }else
+        {
+            $status = "Voucher Tersedia";
+        }
         // dd($voucher);
-        return redirect()->route('pembayaran.show', $id)->withVoucher($voucher);
+        return redirect()->route('pembayaran.show', $id)->withVoucher($voucher)->with('status', $status);
     }
 
     /**

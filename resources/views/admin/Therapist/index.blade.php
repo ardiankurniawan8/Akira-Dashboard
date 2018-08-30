@@ -40,6 +40,11 @@
 
 						</div>
 						<div class="panel-body">
+							@if (session('status'))
+									    <div class="alert alert-success">
+									        {{ session('status') }}
+									    </div>
+								 @endif
 							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addKaryawan"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
 							<table id="tables" class="table table-hover">
 							    <thead>

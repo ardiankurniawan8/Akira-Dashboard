@@ -1,5 +1,5 @@
 {{-- @php
-	dd($password);	
+	dd(Auth::user()->flag);	
 @endphp --}}
 <!doctype html>
 <html lang="en">

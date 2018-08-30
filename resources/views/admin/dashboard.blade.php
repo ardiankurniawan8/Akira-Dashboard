@@ -1,5 +1,5 @@
 {{-- @php
-    dd($data);
+    dd($datass);
 @endphp --}}
 <!doctype html>
 <html lang="en">
@@ -36,8 +36,7 @@
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title">Weekly Overview</h3>
-							<p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
+							<h3 class="panel-title">Overview</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -45,8 +44,8 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-download"></i></span>
 										<p>
-											<span class="number">102</span>
-											<span class="title">Member</span>
+											<span class="number">{{count($datasss['data']['Voucher'])}}</span>
+											<span class="title">Voucher Tersedia</span>
 										</p>
 									</div>
 								</div>
@@ -54,7 +53,7 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-shopping-bag"></i></span>
 										<p>
-											<span class="number">203</span>
+											<span class="number">{{count($datas['data']['statusReservasi'])}}</span>
 											<span class="title">Reservasi Sukses</span>
 										</p>
 									</div>
@@ -72,7 +71,7 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-bar-chart"></i></span>
 										<p>
-											<span class="number">10</span>
+											<span class="number">{{count($datass['data']['KaryawanQuery'])}}</span>
 											<span class="title">Therapist</span>
 										</p>
 									</div>

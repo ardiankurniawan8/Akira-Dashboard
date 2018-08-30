@@ -46,6 +46,7 @@
 							        <th>Kode Reservasi</th>
 							        <th>Produk</th>
 							        <th>Harga</th>
+							        <th></th>
 							      </tr>
 							    </thead>
 							    <tbody>
@@ -55,9 +56,9 @@
 							        @foreach($datas['id_detail'] as $datass)
 							        <td>{{$datass['ref_id']}}</td>
 							        <td>{{$datass['produk']}}</td>
-							        
 							        @endforeach
-							        <td>{{number_format($datas['id_pembayaran'][0]['jumlah'],2,',','.')}}</td>
+							        <td>{{number_format($datas['id_detail'][0]['harga']-$datas['id_detail'][0]['diskon'],2,',','.')}}</td>
+							        <td><a class="nav-link portfolio-link" href="{{ route('pembayaran.edit', $datas['nomor']) }}"><button type="button" class="btn btn-primary">Edit</button></a></td>
 							      </tr>
 							     @endforeach
 							    </tbody>
