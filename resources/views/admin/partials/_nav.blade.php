@@ -14,7 +14,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::asset('assets/img/user.png')}}" class="img-circle" alt="Avatar"><span>{{Auth::user()->nama}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 					<ul class="dropdown-menu">
 						<!--<li><a href="/home"><i class="lnr lnr-user"></i> <span>Landing Page</span></a></li>-->
-						<li><a href="#"><i class="lnr lnr-envelope"></i> <span>My Profile</span></a></li>
+						<li><a href="{{route('gantipassword.edit',Auth::user()->username)}}"><i class="lnr lnr-envelope"></i> <span>Ganti Password</span></a></li>
 						<li><a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>

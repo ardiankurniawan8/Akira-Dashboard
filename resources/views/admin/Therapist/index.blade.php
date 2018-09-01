@@ -52,7 +52,7 @@
 							        <th>NIP</th>
 							        <th>Nama</th>
 							        <th>Jenis Kelamin</th>
-							        <th>Rating</th>
+							        {{-- <th>Rating</th> --}}
 							        <th style="width: 300px"></th>
 							      </tr>
 							    </thead>
@@ -65,7 +65,7 @@
 							        <td>{{$datas['nip']}}</td>
 							        <td>{{$datas['nama']}}</td>
 							        <td>{{$datas['jenis_kelamin']}}</td>
-							        <td>{{$datas['rating']}}</td>
+							        {{-- <td>{{$datas['rating']}}</td> --}}
 							        <td><a class="nav-link portfolio-link" href="{{ route('terapis.edit', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a><span>
 							        <a class="nav-link portfolio-link" href="{{ route('terapis.show', $datas['id']) }}"><button type="button" class="btn btn-primary">Workshift</button></a></td>
 							      </tr>

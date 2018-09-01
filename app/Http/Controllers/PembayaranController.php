@@ -93,7 +93,7 @@ class PembayaranController extends Controller
      */
     public function edit($id)
     {
-        
+        //error
         $client = new Client;
         $request = $client->get(ENV('API_URL').'/graphql?query={HeaderTransaksi(nomor:"'.$id.'"){nomor,tanggal,id_pembayaran{jumlah,referensi}id_detail{ref_id,produk,harga,diskon}}}');
         $response = $request->getBody()->getContents();

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class ReservasiDiterimaController extends Controller
+class ChangePasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,24 +14,7 @@ class ReservasiDiterimaController extends Controller
      */
     public function index()
     {
-        // dd(ENV('API_URL'));
-        $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={statusReservasi(progress:"konfirm"){tanggal,header_reservasi_id{tanggal_reservasi,tamu,kode,detail_reservasi{produk_id{nama,harga,}karyawan_id{nip,nama}}}}}');
-        $response = $request->getBody()->getContents();
-        $data = json_decode($response, true);
-        
-        // foreach ($data['data']['statusReservasi'] as $datas) {
-        //     $datas['tanggal'] = date('y-m-d',strtotime($datas['tanggal']));
-        // }
-        // dd($datas);
-
-        // $datas = $data['data']['statusReservasi'][0]['tanggal'];
-        // dd($datas);
-        // $datass = date('y-m-d', strtotime($datas));
-        return view('admin.reservasi.reservasiditerima')->withData($data);
-        // $fetch = file_get_contents('http://929bd54c.ngrok.io/graphql?query={produk{nama,kode}}');
-        // $test = json_decode($fetch,true);
-        // dd($test);
+        //
     }
 
     /**
@@ -75,11 +58,11 @@ class ReservasiDiterimaController extends Controller
     public function edit($id)
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{CheckinReservasi(ref_id:"'.$id.'"){status,progress}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={users(username:"'.$id.'"){nama,username}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
-        // dd($datas);
-        return redirect()->route('checkin.index');
+
+        return view('admin.changepassword')->withData($data);
     }
 
     /**
@@ -91,7 +74,25 @@ class ReservasiDiterimaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{resetPassword(username:"'.$id.'",password:"'.$request->password.'",new_password:"'.$request->newpassword.'"){id}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+        // dd($data);
+
+        if($data['data']['resetPassword']['id'] == null){
+            // dd('tidak cocok');
+
+            return redirect()->route('gantipassword.edit', $id)->with('status', 'Password lama Salah');
+        
+        }
+        else{
+            dd($data);
+
+        return redirect()->route('dashboard.index');    
+        }
+        
     }
 
     /**

@@ -34,3 +34,5 @@ Route::resource('/management/admin','AdminController')->middleware('auth');
 Route::resource('/laporan/pelanggan','LaporanPelangganController')->middleware('auth');
 Route::resource('/laporan/transaksi','LaporanTransaksiController')->middleware('auth');
 Route::resource('/laporan/reservasi','LaporanReservasiController')->middleware('auth');
+
+Route::resource('/gantipassword','ChangePasswordController')->middleware('auth');

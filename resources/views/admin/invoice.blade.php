@@ -1,6 +1,6 @@
-{{-- @php
+@php
 	dd($data);
-@endphp --}}
+@endphp
 <!doctype html>
 
 <html lang="en">
