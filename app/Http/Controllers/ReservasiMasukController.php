@@ -66,12 +66,6 @@ class ReservasiMasukController extends Controller
      */
     public function edit($id)
     {
-        $clients = new Client;
-        $requests = $clients->get(ENV('API_URL').'/graphql?query=mutation{pushnotif(token:"f40rn2d6H9U:APA91bHNzrVMeS5CZiRKFyhnQCgDL9TaGZNYmvNr5ZAeECGyc6jLRrpkadoMZZ610Oeqf6qlnJX2rXWGirvUkdk2saI4gIUrfQ7ROHTM-ajBZbSOjym4uZdQAuF_TVwNFfGKyi3pxh2o",title:"Masuk Pak Ekoo Josss!!",body:"Mantuls Pak Eko Joss"){id}}');
-        $responses = $requests->getBody()->getContents();
-        $datas = json_decode($responses, true);
-        // dd($datas);
-
         // dd($id);
         $client = new Client;
         $request = $client->get(ENV('API_URL').'/graphql?query=mutation{TerimaReservasi(ref_id:"'.$id.'"){status,progress}}');

@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function index()
     {
         $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={users{nama,username,jenis_kelamin}}');
+        $request = $client->get(ENV('API_URL').'/graphql?query={users(scope:"admin"){nama,username}}');
         $response = $request->getBody()->getContents();
         $data = json_decode($response, true);
         // dd($data);
@@ -44,7 +44,7 @@ class AdminController extends Controller
         // dd($request);
         $nama = $request->nama;
         $username = $request->username;
-        $password = str_random(10);
+        
         // dd($password);
         // dd($logo_voucher);
 
@@ -52,10 +52,11 @@ class AdminController extends Controller
         // dd($test1);
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{AddUser(nama:"'.$nama.'",username:"'.$username.'",password:"'.$password.'",jk:""){nama,username}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{AddUser(nama:"'.$nama.'",username:"'.$username.'",scope:"admin",tenant:"",jk:"",password:""){nama,username}}');
         
         $test = $response->getBody()->getContents();
-        return redirect()->route('admin.index')->with('status', 'Password anda : '.$password);
+        
+        return redirect()->route('admin.index')->with('status', 'Berhasil Menambah Admin');
     }
 
     /**

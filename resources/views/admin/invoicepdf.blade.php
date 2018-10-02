@@ -5,29 +5,9 @@
 
 <html lang="en">
 
-<head>
-
-	@include('admin.partials._head')
-
-</head>
-
 <body>
 	<!-- WRAPPER -->
 	<div id="wrapper">
-		<!-- NAVBAR -->
-
-		@include('admin.partials._nav')
-
-		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
-		<div id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-
-				@include('admin.partials._sidebar')
-
-			</div>
-		</div>
-		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
@@ -123,17 +103,7 @@
 				                  <div class="col-md-6">
 					                  	<label id="kembali" for="kembali" class="col-md-4 col-form-label text-md-right">{{number_format($kembali,2,',','.')}}</label>
 					                  </div>
-				              </div>          
-
-				              <div class="form-group row mb-0" align="center">
-				                <form action="{{ route('print.show',$data['data']['HeaderTransaksi'][0]['nomor'])}}">
-							    	<input class="btn btn-primary" value="Print" type="submit"/>
-								</form>
-				                  
-				              </div>
-				          {{-- </form> --}}
-     
-      
+				              </div>        
     
 						</div>
 					</div>
@@ -144,43 +114,9 @@
 			<!-- END MAIN CONTENT -->
 		</div>
 		<!-- END MAIN -->
-		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
-			</div>
-		</footer>
+
 	</div>
-	<!-- END WRAPPER -->
-	<!-- Javascript -->
-	@include('admin.partials._javascript')
 </body>
 
-<script type="text/javascript">
-	$(document).ready(function(){
- 
-                // Format mata uang.
-    $( '.uang' ).mask('000.000.000', {reverse: true});
- 
-    });
-
-    $(document).submit(function(){
- 
-                // Format mata uang.
-    $( '.uang' ).unmask();
- 
-    }); 
-
-    function validateForm() {
-	    var x = document.forms["form"]["total"].value;
-	    var y = document.forms["form"]["jumlah"].value;
-	    if (y < x) {
-	        alert("Jumlah uang yang anda masukkan kurang");
-	        return false;
-	    }
-	}
-	
-</script>
 
 </html>

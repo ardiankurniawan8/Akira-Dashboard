@@ -133,7 +133,7 @@ class VoucherController extends Controller
         }
 
         $client = new Client;
-        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{UpdateVoucher(id:'.$id.',kode:"'.$kode.'",jumlah:"'.$jumlah.'",tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'"){id,kode,jumlah,tanggal_kadaluarsa,logo_voucher}}');
+        $response = $client->post(ENV('API_URL').'/graphql?query=mutation{UpdateVoucher(id:'.$id.',kode:"'.$kode.'",jumlah:'.$jumlah.',tanggal_kadaluarsa:"'.$tanggal_kadaluarsa.'",logo_voucher:"'.$logo_voucher.'"){id,kode,jumlah,tanggal_kadaluarsa,logo_voucher}}');
         
         $test = $response->getBody()->getContents();
         // dd($test);

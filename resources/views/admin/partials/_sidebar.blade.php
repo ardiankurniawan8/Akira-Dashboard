@@ -1,3 +1,15 @@
+@php
+	use GuzzleHttp\Client;
+
+	$client = new Client;
+    $request = $client->get(ENV('API_URL').'/graphql?query={users(username:"'.Auth::user()->username.'"){username,organizations{nama,scopes}}}');
+    $response = $request->getBody()->getContents();
+    $data = json_decode($response, true);
+    $role = $data['data']['users'][0]['organizations'][0]['scopes'];
+    // dd($role);
+
+    if($role === "[\"owner\"]" || $role === "[\"admin\"]"){
+@endphp
 <nav>
 	<ul class="nav">
 		<li><a href="/dashboard" class="{{Request::is('dashboard')?"active":""}}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
@@ -25,6 +37,12 @@
 			@endif
 		</li>
 		<li><a href="/pembayaran" class="{{Request::is('pembayaran')?"active":""}}"><i class="lnr lnr-dice"></i> <span>Pembayaran</span></a></li>
+		@php
+		// dd($role);
+			if($role === "[\"owner\"]"){
+				// dd('here');
+			
+		@endphp
 		<li><a href="/terapis" class="{{Request::is('terapis')?"active":""}}"><i class="lnr lnr-dice"></i> <span>Terapis</span></a></li>
 		
 		<li>
@@ -73,5 +91,11 @@
 			</div>
 			@endif
 		</li>
+		@php
+			}
+		@endphp
 	</ul>
 </nav>
+@php
+}
+@endphp

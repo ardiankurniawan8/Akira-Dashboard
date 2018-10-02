@@ -1,7 +1,19 @@
 {{-- @php
     dd($datass);
 @endphp --}}
+
 <!doctype html>
+@php
+	use GuzzleHttp\Client;
+
+	$client = new Client;
+    $request = $client->get(ENV('API_URL').'/graphql?query={users(username:"'.Auth::user()->username.'"){username,organizations{nama,scopes}}}');
+    $response = $request->getBody()->getContents();
+    $datausers = json_decode($response, true);
+    $role = $datausers['data']['users'][0]['organizations'][0]['scopes'];
+    // dd($role);
+    // if($role === "[\"owner\"]" || $role === "[\"admin\"]"){
+@endphp
 <html lang="en">
 
 <head>
@@ -91,7 +103,9 @@
 									        {{ session('status') }}
 									    </div>
 								 @endif
+							@if($role === "[\"owner\"]")
 							<p align="right"><a class="nav-link portfolio-link" data-toggle="modal" href="#addProduk"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Tambah data</button></a></p>
+							@endif
 							<table id="tables" class="table table-hover">
 							    <thead>
 							      <tr>
@@ -111,7 +125,9 @@
 							        <td>{{$datas['waktu']}}</td>
 							        <td>Rp. {{number_format($datas['harga'],2,',','.')}}</td>
 							        <td>{{$datas['deskripsi']}}</td>
+							        @if($role === "[\"owner\"]")
 							        <td><a class="nav-link portfolio-link" href="{{ route('dashboard.edit', $datas['id']) }}"><button type="button" class="btn btn-primary">Edit</button></a></td>
+							        @endif
 							      </tr>
 							     @endforeach
 							    </tbody>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use GuzzleHttp\Client;
 
 class PagesController extends Controller {
 
@@ -50,5 +51,12 @@ class PagesController extends Controller {
 
     public function getLaporanTransaksi(){
         return view('admin.laporan.transaksi');
+    }
+    public function getinvoice(){
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query={HeaderTransaksi(nomor:"180911HT100028"){nomor,tanggal,id_pembayaran{jumlah,referensi}id_detail{ref_id,produk,harga,diskon}}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+        return view('admin.invoicepdf',compact('data'));
     }
 }

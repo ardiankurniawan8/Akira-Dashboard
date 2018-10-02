@@ -49,14 +49,14 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-							    {{-- @foreach($data['data']['statusReservasi'] as $datas) --}}
+							    @foreach($data['data']['rating'] as $datas)
 							      <tr>
-							        <td>{{-- {{$datas['header_reservasi_id']['tamu']}} --}}</td>
-							        <td>{{-- {{$datas['header_reservasi_id']['kode']}} --}}</td>
-							        <td>{{-- {{$datas['status']}} --}}</td>
-							        <td>{{-- {{$datas['status']}} --}}</td>
+							        <td>{{$datas['user_id']}}</td>
+							        <td>{{$datas['karyawan_id']}}</td>
+							        <td>{{$datas['rating']}}</td>
+							        <td>{{$datas['komentar']}}</td>
 							      </tr>
-							     {{-- @endforeach --}}
+							     @endforeach
 							    </tbody>
 							  </table>
 						</div>

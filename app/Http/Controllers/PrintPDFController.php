@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use PDF;
 
-class ChangePasswordController extends Controller
+class PrintPDFController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +25,7 @@ class ChangePasswordController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +36,7 @@ class ChangePasswordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -46,7 +47,14 @@ class ChangePasswordController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd('here');
+        $client = new Client;
+        $request = $client->get(ENV('API_URL').'/graphql?query={HeaderTransaksi(nomor:"'.$id.'"){nomor,tanggal,id_pembayaran{jumlah,referensi}id_detail{ref_id,produk,harga,diskon}}}');
+        $response = $request->getBody()->getContents();
+        $data = json_decode($response, true);
+
+        $pdf = PDF::loadview('admin.invoicepdf',compact('data'));
+        return $pdf->download('invoice.pdf');
     }
 
     /**
@@ -57,12 +65,7 @@ class ChangePasswordController extends Controller
      */
     public function edit($id)
     {
-        $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query={users(username:"'.$id.'"){nama,username}}');
-        $response = $request->getBody()->getContents();
-        $data = json_decode($response, true);
-
-        return view('admin.changepassword')->withData($data);
+        //
     }
 
     /**
@@ -74,25 +77,7 @@ class ChangePasswordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
-        $client = new Client;
-        $request = $client->get(ENV('API_URL').'/graphql?query=mutation{resetPassword(username:"'.$id.'",password:"'.$request->password.'",new_password:"'.$request->newpassword.'"){id}}');
-        $response = $request->getBody()->getContents();
-        $data = json_decode($response, true);
-        // dd($data);
-
-        if($data['data']['resetPassword']['id'] == null){
-            // dd('tidak cocok');
-
-            return redirect()->route('gantipassword.edit', $id)->with('status', 'Password lama Salah');
-        
-        }
-        else{
-            // dd($data);
-
-        return redirect()->route('dashboard.index');    
-        }
-        
+        //
     }
 
     /**

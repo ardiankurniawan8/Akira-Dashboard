@@ -1,5 +1,5 @@
 {{-- @php
-	dd(Auth::user()->flag);	
+	dd($data);	
 @endphp --}}
 <!doctype html>
 <html lang="en">
