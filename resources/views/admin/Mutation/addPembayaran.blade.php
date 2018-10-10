@@ -116,7 +116,7 @@
 
 					                  <div class="col-md-6">
 					                  	<label id="total" name="total" for="total" class="col-md-4 col-form-label text-md-right">{{number_format($total,2,',','.')}}</label>
-					                  	<input id="totall" for="totall" name="totall" type="number" class="form-control{{ $errors->has('totall') ? ' is-invalid' : '' }}" value="{{ $total }}" readonly>
+					                  	{{-- <input id="totall" for="totall" name="totall" type="number" class="form-control{{ $errors->has('totall') ? ' is-invalid' : '' }}" value="{{ $total }}" readonly> --}}
 					                  </div>
 					              
 				                  <label for="jumlah" class="col-md-4 col-form-label text-md-right">Jumlah</label>
